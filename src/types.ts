@@ -1,9 +1,10 @@
 import { ReactNode } from 'react'
 
-export interface DeferUntilInteractionContextProps {
+export interface ContextProps {
     afterInteraction: <T>(callback: () => T) => T | undefined
     hasInteracted: boolean
 }
-export interface DeferUntilInteractionProviderProps {
+
+export interface ProviderProps {
     children: ReactNode
 }

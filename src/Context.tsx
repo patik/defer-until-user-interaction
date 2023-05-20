@@ -1,7 +1,7 @@
 import { createContext } from 'react'
-import { DeferUntilInteractionContextProps } from './types'
+import { ContextProps } from './types'
 
-export const DeferUntilInteractionContext = createContext<DeferUntilInteractionContextProps>({
+export const DeferUntilInteractionContext = createContext<ContextProps>({
     afterInteraction: () => undefined,
     hasInteracted: false,
 })

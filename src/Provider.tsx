@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router'
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import { NextRouter } from 'next/router'
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { DeferUntilInteractionContext } from './Context'
-import { DeferUntilInteractionProviderProps } from './types'
+import { ProviderProps } from './types'
 
 // These are the events that we assume will occur when the user interacts with the page
 const eventNames = ['click', 'touchstart', 'scroll']
@@ -10,8 +10,10 @@ const eventNames = ['click', 'touchstart', 'scroll']
  * Tracks whether or not the user has interacted with the current page
  *
  * Returns a boolean as well as a function which takes a callback that will only be invoked when the user has interacted with the page
+ *
+ * Pass useRouter if you want it to reset the value when the route changes (recommended for Next.js apps)
  */
-export function DeferUntilInteractionProvider({ children }: DeferUntilInteractionProviderProps): ReactElement {
+export function Provider({ useRouter, children }: ProviderProps & { useRouter?: () => NextRouter }): ReactElement {
     const [hasInteracted, setHasInteracted] = useState(false)
     const [areEventListenersCurrentlyActive, setAreEventListenersCurrentlyActive] = useState(false)
     const handleInteraction = () => {
@@ -56,9 +58,13 @@ export function DeferUntilInteractionProvider({ children }: DeferUntilInteractio
         requestAnimationFrame(() => addEventListeners())
     }, [addEventListeners])
 
-    const router = useRouter()
+    const router = useRouter ? useRouter() : null
 
     useEffect(() => {
+        if (!router) {
+            return
+        }
+
         router.events.on('routeChangeStart', onRouteChangeStart)
         router.events.on('routeChangeComplete', onRouteChangeComplete)
 
@@ -66,7 +72,7 @@ export function DeferUntilInteractionProvider({ children }: DeferUntilInteractio
             router.events.off('routeChangeStart', onRouteChangeStart)
             router.events.off('routeChangeComplete', onRouteChangeComplete)
         }
-    }, [onRouteChangeComplete, onRouteChangeStart, router.events])
+    }, [onRouteChangeComplete, onRouteChangeStart, router?.events])
 
     // This function will only invoke its callback when the page has been interacted with
     const afterInteraction = useMemo(
