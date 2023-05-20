@@ -1,0 +1,16 @@
+{
+    "name": "defer-until-user-interaction",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/patik/defer-until-user-interaction.git",
+    "author": "Craig Patik <craig@patik.com>",
+    "license": "BSD Clause-3",
+    "devDependencies": {
+        "@types/react": "^18.2.6",
+        "typescript": "^5.0.4"
+    },
+    "dependencies": {
+        "next": "^13.4.3",
+        "react": "^18.2.0"
+    }
+}
