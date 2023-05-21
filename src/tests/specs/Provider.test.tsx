@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useDeferUntilInteraction } from '../../useDeferUntilInteraction'
+import { Provider } from '../../Provider'
 
 function TestComponent() {
     const { afterInteraction, hasInteracted } = useDeferUntilInteraction()
@@ -22,23 +23,56 @@ function TestComponent() {
 
 describe('General functionality', () => {
     test('Clicking on the page causes the boolean and callback to change their value', async () => {
-        render(<TestComponent />)
+        render(
+            <Provider>
+                <TestComponent />
+            </Provider>
+        )
 
         await waitFor(async () => {
             expect(screen.getByText('You should see me all the time')).toBeVisible()
         })
 
         expect(screen.getByText('The boolean says you have not interacted yet')).toBeVisible()
-        expect(screen.getByText('I only appear using the boolean')).not.toBeVisible()
-        expect(screen.getByText('I only appear using the callback')).not.toBeVisible()
+        expect(() => screen.getByText(/I only appear using the boolean/)).toThrow()
+        expect(() => screen.getByText('I only appear using the callback')).toThrow()
 
         await userEvent.click(document.body)
 
         await waitFor(async () => {
-            expect(screen.getByText('I only appear using the callback')).toBeVisible()
+            expect(screen.getByText(/I only appear using the callback/)).toBeVisible()
         })
 
-        expect(screen.getByText('I only appear using the boolean')).toBeVisible()
-        expect(screen.getByText('The boolean says you have not interacted yet')).not.toBeVisible()
+        await waitFor(async () => {
+            expect(screen.getByText(/I only appear using the boolean/)).toBeVisible()
+        })
+        expect(() => screen.getByText(/The boolean says you have not interacted yet/)).toThrow()
     })
+
+    // test('Scrolling the page causes the boolean and callback to change their value', async () => {
+    //     render(
+    //         <Provider>
+    //             <TestComponent />
+    //         </Provider>
+    //     )
+
+    //     await waitFor(async () => {
+    //         expect(screen.getByText('You should see me all the time')).toBeVisible()
+    //     })
+
+    //     expect(screen.getByText('The boolean says you have not interacted yet')).toBeVisible()
+    //     expect(() => screen.getByText(/I only appear using the boolean/)).toThrow()
+    //     expect(() => screen.getByText('I only appear using the callback')).toThrow()
+
+    //     userEvent.pointer(document.body)
+
+    //     await waitFor(async () => {
+    //         expect(screen.getByText(/I only appear using the callback/)).toBeVisible()
+    //     })
+
+    //     await waitFor(async () => {
+    //         expect(screen.getByText(/I only appear using the boolean/)).toBeVisible()
+    //     })
+    //     expect(() => screen.getByText(/The boolean says you have not interacted yet/)).toThrow()
+    // })
 })
