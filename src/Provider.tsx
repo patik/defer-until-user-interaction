@@ -17,9 +17,9 @@ const eventNames = ['click', 'touchstart', 'scroll']
 export function Provider({ router, children }: ProviderProps & { router?: NextRouter }): ReactElement {
     const [hasUserTriggeredEvent, setHasUserTriggeredEvent] = useState(false)
     const [areEventListenersCurrentlyActive, setAreEventListenersCurrentlyActive] = useState(false)
+    const intervalTimer = useRef<ReturnType<typeof setInterval>>()
     const [timer, setTimer] = useState(10)
     const [hasTimerExpired, setHasTimerExpired] = useState(false)
-    const intervalTimer = useRef<ReturnType<typeof setInterval>>()
     const hasInteracted = hasUserTriggeredEvent || hasTimerExpired
     const handleInteraction = () => {
         setHasUserTriggeredEvent(true)
@@ -30,22 +30,15 @@ export function Provider({ router, children }: ProviderProps & { router?: NextRo
         setAreEventListenersCurrentlyActive(true)
     }, [])
     const removeEventListeners = useCallback(() => {
-        if (!areEventListenersCurrentlyActive) {
-            return
-        }
-
         eventNames.forEach((eventName) => window.removeEventListener(eventName, handleInteraction))
         setAreEventListenersCurrentlyActive(false)
-    }, [areEventListenersCurrentlyActive])
+    }, [])
 
-    const startTimer = () => {
-        intervalTimer.current = setInterval(() => {
-            setTimer((prevTimer) => prevTimer - 1)
-        }, 1000)
-    }
-    const endTimer = () => {
-        clearInterval(intervalTimer.current)
-    }
+    useEffect(() => {
+        if (areEventListenersCurrentlyActive && hasUserTriggeredEvent) {
+            removeEventListeners()
+        }
+    }, [areEventListenersCurrentlyActive, hasUserTriggeredEvent, removeEventListeners])
 
     useEffect(() => {
         addEventListeners()
@@ -57,30 +50,31 @@ export function Provider({ router, children }: ProviderProps & { router?: NextRo
         if (timer === 0) {
             setHasTimerExpired(true)
         } else {
-            startTimer()
+            intervalTimer.current = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1)
+            }, 1000)
 
-            return () => endTimer()
+            return () => {
+                clearInterval(intervalTimer.current)
+            }
         }
     }, [timer])
 
-    // Clean up event listeners and the timer once the user has interacted
-    useEffect(() => {
-        if (!hasUserTriggeredEvent) {
-            return
-        }
-
-        removeEventListeners()
-        endTimer()
-    }, [hasUserTriggeredEvent, removeEventListeners])
-
-    // Optionally watch a NextRouter for route changes
+    // Optionally watch NextRouter for route changes
     useTrackNextRouter({
+        areEventListenersCurrentlyActive,
         removeEventListeners,
         setHasUserTriggeredEvent,
         addEventListeners,
         router,
-        startTimer,
-        endTimer,
+        startTimer: () => {
+            intervalTimer.current = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1)
+            }, 1000)
+        },
+        endTimer: () => {
+            clearInterval(intervalTimer.current)
+        },
     })
 
     // This function will only invoke its callback when the page has been interacted with
