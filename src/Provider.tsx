@@ -14,11 +14,12 @@ const eventNames = ['click', 'touchstart', 'scroll']
  *
  * Pass a NextRouter if you want it to reset the value when the route changes (recommended for Next.js apps)
  */
-export function Provider({ router, children }: ProviderProps & { router?: NextRouter }): ReactElement {
+export function Provider({ router, timeout = 10000, children }: ProviderProps & { router?: NextRouter }): ReactElement {
     const [hasUserTriggeredEvent, setHasUserTriggeredEvent] = useState(false)
     const [areEventListenersCurrentlyActive, setAreEventListenersCurrentlyActive] = useState(false)
+    const isTimerDisabledByCaller = useRef(timeout === 0).current
     const intervalTimer = useRef<ReturnType<typeof setInterval>>()
-    const [timer, setTimer] = useState(10)
+    const [timer, setTimer] = useState(timeout)
     const [hasTimerExpired, setHasTimerExpired] = useState(false)
     const hasInteracted = hasUserTriggeredEvent || hasTimerExpired
     const handleInteraction = () => {
@@ -46,19 +47,37 @@ export function Provider({ router, children }: ProviderProps & { router?: NextRo
         return () => removeEventListeners()
     }, [removeEventListeners, addEventListeners])
 
+    const startTimer = useCallback(() => {
+        if (isTimerDisabledByCaller) {
+            return
+        }
+
+        // Update the state once per second
+        intervalTimer.current = setInterval(() => {
+            setTimer((prevTimer) => prevTimer - 1000)
+        }, 1000)
+    }, [isTimerDisabledByCaller])
+    const endTimer = useCallback(() => {
+        if (isTimerDisabledByCaller) {
+            return
+        }
+
+        clearInterval(intervalTimer.current)
+    }, [isTimerDisabledByCaller])
+
     useEffect(() => {
+        if (isTimerDisabledByCaller) {
+            return
+        }
+
         if (timer === 0) {
             setHasTimerExpired(true)
         } else {
-            intervalTimer.current = setInterval(() => {
-                setTimer((prevTimer) => prevTimer - 1)
-            }, 1000)
+            startTimer()
 
-            return () => {
-                clearInterval(intervalTimer.current)
-            }
+            return () => endTimer()
         }
-    }, [timer])
+    }, [endTimer, isTimerDisabledByCaller, startTimer, timer])
 
     // Optionally watch NextRouter for route changes
     useTrackNextRouter({
@@ -67,14 +86,8 @@ export function Provider({ router, children }: ProviderProps & { router?: NextRo
         setHasUserTriggeredEvent,
         addEventListeners,
         router,
-        startTimer: () => {
-            intervalTimer.current = setInterval(() => {
-                setTimer((prevTimer) => prevTimer - 1)
-            }, 1000)
-        },
-        endTimer: () => {
-            clearInterval(intervalTimer.current)
-        },
+        startTimer,
+        endTimer,
     })
 
     // This function will only invoke its callback when the page has been interacted with

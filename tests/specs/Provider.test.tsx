@@ -48,10 +48,31 @@ describe('General functionality', () => {
         })
         expect(() => screen.getByText(/The boolean says you have not interacted yet/)).toThrow()
     })
+})
 
-    test('times out after 5 seconds', async () => {
+describe('Timeout', () => {
+    test('ignores timer when it’s disabled', async () => {
         render(
-            <DeferUntilInteractionProvider>
+            <DeferUntilInteractionProvider timeout={0}>
+                <TestComponent />
+            </DeferUntilInteractionProvider>
+        )
+
+        await waitFor(async () => {
+            expect(screen.getByText('You should see me all the time')).toBeVisible()
+        })
+
+        await waitFor(
+            async () => {
+                expect(() => screen.getByText(/I only appear using the boolean/)).toThrow()
+            },
+            { timeout: 5000 }
+        )
+    })
+
+    test('times out after 3 seconds', async () => {
+        render(
+            <DeferUntilInteractionProvider timeout={3000}>
                 <TestComponent />
             </DeferUntilInteractionProvider>
         )
@@ -68,7 +89,7 @@ describe('General functionality', () => {
             async () => {
                 expect(screen.getByText(/I only appear using the callback/)).toBeVisible()
             },
-            { timeout: 12000 }
+            { timeout: 4000 }
         )
 
         await waitFor(async () => {

@@ -6,5 +6,6 @@ export interface ContextProps {
 }
 
 export interface ProviderProps {
+    timeout?: number
     children: ReactNode
 }

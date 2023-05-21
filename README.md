@@ -32,6 +32,10 @@ function App() {
 }
 ```
 
+### Options
+
+#### Next.js
+
 In a Next.js app, add the provider to your `_app.tsx`, and pass the NextRouter:
 
 ```tsx
@@ -52,6 +56,27 @@ function App() {
 
 This will enable the module to re-run on each route change, as if the page was freshly loaded in the browser.
 
+#### Timeout
+
+The hook will indicate that the user has interacted with the page, even if the user has not actually clicked/scrolled/etc, once 10 seconds have elapsed. This is meant as a safety fallback in case the events are somehow not heard, and for pages that are opened in the background (i.e. in a separate browser tab).
+
+You may override the default timeout of 10 seconds by passing your own value (in milliseconds):
+
+```tsx
+import { DeferUntilInteractionProvider } from 'react-defer-until-interaction'
+
+function App() {
+    return (
+
+        <DeferUntilInteractionProvider timeout={5000} /* Assume that interaction has happened after 5 seconds */>
+            <MyContents />
+        </DeferUntilInteractionProvider>
+    )
+}
+```
+
+You can also set `timeout={0}` to disable the timer.
+
 ## Usage
 
 The `useDeferUntilInteraction` hook exposes two properties, a boolean and a function.
@@ -70,3 +95,4 @@ function MyComponent() {
         {afterInteraction(() => <BelowTheFold />)}
     )
 }
+```
