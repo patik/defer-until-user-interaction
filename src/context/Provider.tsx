@@ -1,11 +1,13 @@
 import { NextRouter } from 'next/router'
-import { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { ReactElement, useMemo, useRef, useState } from 'react'
 import { DeferUntilInteractionContext } from './Context'
-import { ProviderProps } from './types'
-import { useTrackNextRouter } from './useTrackNextRouter'
+import { ProviderProps } from '../types'
+import { useTrackNextRouter } from '../effects/useTrackNextRouter'
+import { useTrackUserEvents } from '../effects/useTrackUserEvents'
+import { useTrackTimer } from '../effects/useTrackTimer'
 
 // These are the events that we assume will occur when the user interacts with the page
-const eventNames = ['click', 'touchstart', 'scroll']
+export const eventNames = ['click', 'touchstart', 'scroll']
 
 /**
  * Tracks whether or not the user has interacted with the current page
@@ -22,62 +24,20 @@ export function Provider({ router, timeout = 10000, children }: ProviderProps & 
     const [timer, setTimer] = useState(timeout)
     const [hasTimerExpired, setHasTimerExpired] = useState(false)
     const hasInteracted = hasUserTriggeredEvent || hasTimerExpired
-    const handleInteraction = () => {
-        setHasUserTriggeredEvent(true)
-    }
+    const { removeEventListeners, addEventListeners } = useTrackUserEvents({
+        setHasUserTriggeredEvent,
+        setAreEventListenersCurrentlyActive,
+        areEventListenersCurrentlyActive,
+        hasUserTriggeredEvent,
+    })
 
-    const addEventListeners = useCallback(() => {
-        eventNames.forEach((eventName) => window.addEventListener(eventName, handleInteraction))
-        setAreEventListenersCurrentlyActive(true)
-    }, [])
-    const removeEventListeners = useCallback(() => {
-        eventNames.forEach((eventName) => window.removeEventListener(eventName, handleInteraction))
-        setAreEventListenersCurrentlyActive(false)
-    }, [])
-
-    useEffect(() => {
-        if (areEventListenersCurrentlyActive && hasUserTriggeredEvent) {
-            removeEventListeners()
-        }
-    }, [areEventListenersCurrentlyActive, hasUserTriggeredEvent, removeEventListeners])
-
-    useEffect(() => {
-        addEventListeners()
-
-        return () => removeEventListeners()
-    }, [removeEventListeners, addEventListeners])
-
-    const startTimer = useCallback(() => {
-        if (isTimerDisabledByCaller) {
-            return
-        }
-
-        // Update the state once per second
-        intervalTimer.current = setInterval(() => {
-            setTimer((prevTimer) => prevTimer - 1000)
-        }, 1000)
-    }, [isTimerDisabledByCaller])
-    const endTimer = useCallback(() => {
-        if (isTimerDisabledByCaller) {
-            return
-        }
-
-        clearInterval(intervalTimer.current)
-    }, [isTimerDisabledByCaller])
-
-    useEffect(() => {
-        if (isTimerDisabledByCaller) {
-            return
-        }
-
-        if (timer === 0) {
-            setHasTimerExpired(true)
-        } else {
-            startTimer()
-
-            return () => endTimer()
-        }
-    }, [endTimer, isTimerDisabledByCaller, startTimer, timer])
+    const { startTimer, endTimer } = useTrackTimer({
+        isTimerDisabledByCaller,
+        intervalTimer,
+        setTimer,
+        timer,
+        setHasTimerExpired,
+    })
 
     // Optionally watch NextRouter for route changes
     useTrackNextRouter({

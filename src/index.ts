@@ -1,2 +1,2 @@
-export { Provider as DeferUntilInteractionProvider } from './Provider'
-export { useDeferUntilInteraction } from './hook'
+export { Provider as DeferUntilInteractionProvider } from './context/Provider'
+export { useDeferUntilInteraction } from './context/hook'
