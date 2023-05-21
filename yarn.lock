@@ -684,6 +684,90 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.4.3.tgz#c7b2b1b9e158fd7749f8209e68ee8e43a997eb4c"
   integrity sha512-jglUk/x7ZWeOJWlVoKyIAkHLTI+qEkOriOOV+3hr1GyiywzcqfI7TpFSiwC7kk1scOiH7NTFKp8mA3XPNO9bDw==
 
+"@node-rs/xxhash-android-arm-eabi@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-android-arm-eabi/-/xxhash-android-arm-eabi-1.4.0.tgz#55ace4d3882686d1e379aaf613e1338d78f13fc8"
+  integrity sha512-JuZNqt5/znWkIGteikQdS+HT9S0JsMYi06S4yzU/sMKLCIPvD0MnCTXlYtuDcgRIKScCaepAsSQVomnAyLFNNA==
+
+"@node-rs/xxhash-android-arm64@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-android-arm64/-/xxhash-android-arm64-1.4.0.tgz#2290c53ceabda804afb4c45679613d833a6385a0"
+  integrity sha512-BZzQO5jlgsIr9HhiqTwZjYqlfVeZiu+7PaoAdNEOq+i/SjyAqv1jGSkyek4rBSAiodyNkXcbE0eQtomeN6a55w==
+
+"@node-rs/xxhash-darwin-arm64@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-darwin-arm64/-/xxhash-darwin-arm64-1.4.0.tgz#96df4f48b13deb6899e84ed0882bdbd0a4856f13"
+  integrity sha512-JlEAzTsQaqJaWVse/JP//6QKBIhzqzTlvNY4uEbi8TaZMfvDDhW//ClXM6CkSV799GJxAYPu1LXa4+OeBQpa7Q==
+
+"@node-rs/xxhash-darwin-x64@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-darwin-x64/-/xxhash-darwin-x64-1.4.0.tgz#9df3ca3a87354dd5386aadfa20ad032a299c2b8f"
+  integrity sha512-9ycVJfzLvw1wc6Tgq0giLkMn5nGOBawTeOA17t27dQFdY/scZPz583DO7w+eznMnlzUXwoLiloanUebRhy+piQ==
+
+"@node-rs/xxhash-freebsd-x64@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-freebsd-x64/-/xxhash-freebsd-x64-1.4.0.tgz#24b0c0bfd33429303688b4af78f9d323daa0fb5b"
+  integrity sha512-vFRDr6qA0gHWQDjuSxXcdzM4Ppk+5VebEhc76zkWrRVc6RG60fxLo5B4j6QwMwXGTYaG8HMv/nQhAgbnOCWWxQ==
+
+"@node-rs/xxhash-linux-arm-gnueabihf@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-linux-arm-gnueabihf/-/xxhash-linux-arm-gnueabihf-1.4.0.tgz#4c09f70cd39429fb1a52f3567085e949603d4817"
+  integrity sha512-0KS6y1caqbtPanos9XNMekWpozCHA6QSlQzaZyn9Hn+Z+mYpR5+NoWixefhp06jt59qF9+LkkF3C9fSEHYmq/w==
+
+"@node-rs/xxhash-linux-arm64-gnu@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-linux-arm64-gnu/-/xxhash-linux-arm64-gnu-1.4.0.tgz#e92d7026614506fb4db309977127fd8589fabd7c"
+  integrity sha512-QI97JK2qiQhVgRtUBMgA1ZjPLpwnz11SE2Mw1jryejmyH9EXKKiCyt2FweO6MVP7bEuMxcdajBho4pEL7s/QsA==
+
+"@node-rs/xxhash-linux-arm64-musl@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-linux-arm64-musl/-/xxhash-linux-arm64-musl-1.4.0.tgz#a8b16233a86c116e6af32a69278248d17b2d09e7"
+  integrity sha512-dtMid4OMkNBYGJkjoT1jdkENpV8m8MGp3lliDN8C+2znZUQM8KFRTXRkfaq4lgzu3Y2XeYzsLOoBsBd3Hgf7gA==
+
+"@node-rs/xxhash-linux-x64-gnu@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-linux-x64-gnu/-/xxhash-linux-x64-gnu-1.4.0.tgz#385ec91396ebaa2b73abf419be3971ec893dcbd1"
+  integrity sha512-OeOQL10cG62wL1IVoeC74xESmefHU7r3xiZMTP2hK5Dh3FdF2sa3x/Db9BcGXlaokg/lMGDxuTuzOLC2Rv/wlQ==
+
+"@node-rs/xxhash-linux-x64-musl@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-linux-x64-musl/-/xxhash-linux-x64-musl-1.4.0.tgz#715bb962502b0ec69e1fc19db22ac035c63d30c7"
+  integrity sha512-kZ8wNi5bH9b+ZpuPlSbFd6JXk8CKbfCvCPZ0Vk0IqLkzB6PihQflnZPM9r0QZ2jtFgyfWmpbFK4YxwX9YcyLog==
+
+"@node-rs/xxhash-win32-arm64-msvc@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-win32-arm64-msvc/-/xxhash-win32-arm64-msvc-1.4.0.tgz#4a3a4ebcb50c73e4309e429b28eb44dbf8f7f71f"
+  integrity sha512-Ggv66jlhQvj4XgQqNgl2JKQ7My/97PvPZi5jKbcS7t65wJC36J6XERQwRPdupO8UH63XfPqb7HJqrgmiz8tmlA==
+
+"@node-rs/xxhash-win32-ia32-msvc@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-win32-ia32-msvc/-/xxhash-win32-ia32-msvc-1.4.0.tgz#fdfdb43e41113a8baf15779ca53bb637d2e1bc8f"
+  integrity sha512-mYpF1+7unqKKGsPn7Y8X6SqP2Bc5BU5dsHBKhAGAuvrMg9W63zM+YWM8/fpNGfFlOrjiKRvXHZ96nrZyzoxeBw==
+
+"@node-rs/xxhash-win32-x64-msvc@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash-win32-x64-msvc/-/xxhash-win32-x64-msvc-1.4.0.tgz#aee714a4ae0121f3947f94139adf13f5b6d93d12"
+  integrity sha512-rKuqWHuQNlrfjIOkQW3oCBta/GUlyVoUkKB13aVr8uixOs/eneuDaYJx2h02FAAWlWCKADFnMxgDl0LVFBy53w==
+
+"@node-rs/xxhash@^1.3.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@node-rs/xxhash/-/xxhash-1.4.0.tgz#1e75850e0e530c9224e8e5ba4056d52e8868291b"
+  integrity sha512-UpSOParhMqbQ7hsYovN2e+uqvWqHJiCDvFl8gDzMcXgBY/PkI2zo2zhdRAZdz48c6/dke+0WjCKy90wDVQxS6g==
+  optionalDependencies:
+    "@node-rs/xxhash-android-arm-eabi" "1.4.0"
+    "@node-rs/xxhash-android-arm64" "1.4.0"
+    "@node-rs/xxhash-darwin-arm64" "1.4.0"
+    "@node-rs/xxhash-darwin-x64" "1.4.0"
+    "@node-rs/xxhash-freebsd-x64" "1.4.0"
+    "@node-rs/xxhash-linux-arm-gnueabihf" "1.4.0"
+    "@node-rs/xxhash-linux-arm64-gnu" "1.4.0"
+    "@node-rs/xxhash-linux-arm64-musl" "1.4.0"
+    "@node-rs/xxhash-linux-x64-gnu" "1.4.0"
+    "@node-rs/xxhash-linux-x64-musl" "1.4.0"
+    "@node-rs/xxhash-win32-arm64-msvc" "1.4.0"
+    "@node-rs/xxhash-win32-ia32-msvc" "1.4.0"
+    "@node-rs/xxhash-win32-x64-msvc" "1.4.0"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -740,6 +824,40 @@
   integrity sha512-OPwQlEdg40HAj5KNF8WW6q2KG4Z+cBCZb3m4ninfTZKaBmbIJodviQsDBoYMPHkOyJJMHnOJo5j2+LKDOhOACg==
   dependencies:
     "@sinonjs/commons" "^3.0.0"
+
+"@swc-node/core@^1.10.3":
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/@swc-node/core/-/core-1.10.3.tgz#dbc37c6d8d28ce59bd1bc55b300fb92bd3876152"
+  integrity sha512-8rpv1DXzsQjN/C8ZXuaTSmJ4M/lRr6geUlbOQ861DLC+sKWcEEvxRjK9cXQ28GserHuEcFDA3wlF9rD1YD0x+Q==
+
+"@swc-node/jest@^1.6.5":
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/@swc-node/jest/-/jest-1.6.5.tgz#912d69565e7e621eaee345f94db2ded466e861b7"
+  integrity sha512-u6Vpp3Z7Fz2HLbXpLR5uubC2trMZuLxmEMKGirkyLLbnNRXVr4UisuJfNMFheXab9fhRbZRpbBGL/wOFgUFmBA==
+  dependencies:
+    "@node-rs/xxhash" "^1.3.0"
+    "@swc-node/core" "^1.10.3"
+    "@swc-node/register" "^1.6.5"
+
+"@swc-node/register@^1.6.5":
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/@swc-node/register/-/register-1.6.5.tgz#6ff5f98605c143e161a6712b2046ce1e6216409a"
+  integrity sha512-yMxXlzthI0aMadYYKDhx7xvtjljB1qoD8Tv0djqSJ1ttTkoDxg6MhG5A5pIahiUT2neVrkWb9lCavoUwXAe/zQ==
+  dependencies:
+    "@swc-node/core" "^1.10.3"
+    "@swc-node/sourcemap-support" "^0.3.0"
+    colorette "^2.0.19"
+    debug "^4.3.4"
+    pirates "^4.0.5"
+    tslib "^2.5.0"
+
+"@swc-node/sourcemap-support@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@swc-node/sourcemap-support/-/sourcemap-support-0.3.0.tgz#e8a0d139bd3e8db39635f63fde43dbe6c39237cc"
+  integrity sha512-gqBJSmJMWomZFxlppaKea7NeAqFrDrrS0RMt24No92M3nJWcyI9YKGEQKl+EyJqZ5gh6w1s0cTklMHMzRwA1NA==
+  dependencies:
+    source-map-support "^0.5.21"
+    tslib "^2.5.0"
 
 "@swc/helpers@0.5.1":
   version "0.5.1"
@@ -1535,6 +1653,11 @@ color-name@~1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
+
+colorette@^2.0.19:
+  version "2.0.20"
+  resolved "https://registry.yarnpkg.com/colorette/-/colorette-2.0.20.tgz#9eb793e6833067f7235902fcd3b09917a000a95a"
+  integrity sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==
 
 combined-stream@^1.0.8:
   version "1.0.8"
@@ -3888,7 +4011,7 @@ picomatch@^2.0.4, picomatch@^2.2.3, picomatch@^2.3.1:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
-pirates@^4.0.4:
+pirates@^4.0.4, pirates@^4.0.5:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.5.tgz#feec352ea5c3268fb23a37c702ab1699f35a5f3b"
   integrity sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==
@@ -4204,6 +4327,14 @@ source-map-support@0.5.13:
   version "0.5.13"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.13.tgz#31b24a9c2e73c2de85066c0feb7d44767ed52932"
   integrity sha512-SHSKFHadjVA5oR4PPqhtAVdcBWwRYVd6g6cAXnIbRiIwc2EhPrTuKUBdSLvlEKyIP3GCf89fltvcZiP9MMFA1w==
+  dependencies:
+    buffer-from "^1.0.0"
+    source-map "^0.6.0"
+
+source-map-support@^0.5.21:
+  version "0.5.21"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.21.tgz#04fe7c7f9e1ed2d662233c28cb2b35b9f63f6e4f"
+  integrity sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==
   dependencies:
     buffer-from "^1.0.0"
     source-map "^0.6.0"

@@ -14,6 +14,9 @@
         "sourceMap": true,
         "outDir": "dist",
         "rootDir": ".",
-        "baseUrl": "."
-    }
+        "baseUrl": ".",
+        "allowJs": true
+    },
+    "include": ["src/**/*.ts*", "src/tests/**/*.ts*", "jest.config.ts"],
+    "exclude": ["../node_modules", "node_modules"]
 }

@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { useDeferUntilInteraction } from '../../src/useDeferUntilInteraction'
+import { useDeferUntilInteraction } from '../../useDeferUntilInteraction'
 
 function TestComponent() {
     const { afterInteraction, hasInteracted } = useDeferUntilInteraction()
