@@ -37,7 +37,6 @@ export function Provider({ router, children }: ProviderProps & { router?: NextRo
     }, [areEventListenersCurrentlyActive, hasInteracted, removeEventListeners])
 
     useEffect(() => {
-        console.log('xyz Adding event listeners ', typeof window)
         addEventListeners()
 
         return () => removeEventListeners()

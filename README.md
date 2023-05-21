@@ -1,1 +1,1 @@
-# defer-until-user-interaction
+# react-defer-until-interaction

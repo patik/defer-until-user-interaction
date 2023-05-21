@@ -9,8 +9,6 @@ export function useTrackNextRouter(
     router: NextRouter | undefined
 ) {
     const onRouteChangeStart = useCallback(() => {
-        console.log('xyz resetting value because of route change')
-
         // If the user hasn't interacted since the last route change, then it means we haven't cleaned up the existing event listeners yet, so do that first before we re-add them below
         if (areEventListenersCurrentlyActive) {
             removeEventListeners()
