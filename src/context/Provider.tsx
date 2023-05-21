@@ -6,9 +6,6 @@ import { useTrackNextRouter } from '../effects/useTrackNextRouter'
 import { useTrackUserEvents } from '../effects/useTrackUserEvents'
 import { useTrackTimer } from '../effects/useTrackTimer'
 
-// These are the events that we assume will occur when the user interacts with the page
-export const eventNames = ['click', 'touchstart', 'scroll']
-
 /**
  * Tracks whether or not the user has interacted with the current page
  *

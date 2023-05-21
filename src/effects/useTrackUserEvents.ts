@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useCallback, useEffect } from 'react'
-import { eventNames } from '../context/Provider'
+
+// These are the events that we assume will occur when the user interacts with the page
+const eventNames = ['click', 'touchstart', 'scroll']
 
 export function useTrackUserEvents({
     setHasUserTriggeredEvent,

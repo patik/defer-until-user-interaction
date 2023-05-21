@@ -21,7 +21,7 @@ function TestComponent() {
     )
 }
 
-describe('General functionality', () => {
+describe('Detecting user interaction', () => {
     test('Clicking on the page causes the boolean and callback to change their value', async () => {
         render(
             <DeferUntilInteractionProvider>
