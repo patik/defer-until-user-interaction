@@ -1,10 +1,11 @@
-import type { Config } from 'jest'
+import type { JestConfigWithTsJest } from 'ts-jest'
 
-const config: Config = {
+const config: JestConfigWithTsJest = {
+    // preset: 'ts-jest',
     testEnvironment: 'jsdom',
-    rootDir: '.',
-    testPathIgnorePatterns: ['.js'],
-    setupFilesAfterEnv: ['<rootDir>/src/tests/jest-setup.ts'],
+    // rootDir: '.',
+    // testPathIgnorePatterns: ['.js'],
+    setupFilesAfterEnv: ['<rootDir>/tests/jest-setup.ts'],
     transform: {
         '^.+\\.(ts|tsx)?$': [
             'ts-jest',

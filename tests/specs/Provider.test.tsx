@@ -1,0 +1,44 @@
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { useDeferUntilInteraction } from '../../src/useDeferUntilInteraction'
+
+function TestComponent() {
+    const { afterInteraction, hasInteracted } = useDeferUntilInteraction()
+
+    return (
+        <>
+            <p>You should see me all the time</p>
+            {afterInteraction(() => (
+                <p>I only appear using the callback</p>
+            ))}
+            {hasInteracted ? (
+                <p>I only appear using the boolean</p>
+            ) : (
+                <p>The boolean says you have not interacted yet</p>
+            )}
+        </>
+    )
+}
+
+describe('General functionality', () => {
+    test('Clicking on the page causes the boolean and callback to change their value', async () => {
+        render(<TestComponent />)
+
+        await waitFor(async () => {
+            expect(screen.getByText('You should see me all the time')).toBeVisible()
+        })
+
+        expect(screen.getByText('The boolean says you have not interacted yet')).toBeVisible()
+        expect(screen.getByText('I only appear using the boolean')).not.toBeVisible()
+        expect(screen.getByText('I only appear using the callback')).not.toBeVisible()
+
+        await userEvent.click(document.body)
+
+        await waitFor(async () => {
+            expect(screen.getByText('I only appear using the callback')).toBeVisible()
+        })
+
+        expect(screen.getByText('I only appear using the boolean')).toBeVisible()
+        expect(screen.getByText('The boolean says you have not interacted yet')).not.toBeVisible()
+    })
+})
