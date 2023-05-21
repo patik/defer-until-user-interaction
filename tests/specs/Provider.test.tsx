@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { useDeferUntilInteraction } from '../../useDeferUntilInteraction'
-import { Provider } from '../../Provider'
+import { DeferUntilInteractionProvider } from '../../src/index'
+import { useDeferUntilInteraction } from '../../src/hook'
 
 function TestComponent() {
     const { afterInteraction, hasInteracted } = useDeferUntilInteraction()
@@ -24,9 +24,9 @@ function TestComponent() {
 describe('General functionality', () => {
     test('Clicking on the page causes the boolean and callback to change their value', async () => {
         render(
-            <Provider>
+            <DeferUntilInteractionProvider>
                 <TestComponent />
-            </Provider>
+            </DeferUntilInteractionProvider>
         )
 
         await waitFor(async () => {
@@ -51,9 +51,9 @@ describe('General functionality', () => {
 
     test('times out after 5 seconds', async () => {
         render(
-            <Provider>
+            <DeferUntilInteractionProvider>
                 <TestComponent />
-            </Provider>
+            </DeferUntilInteractionProvider>
         )
 
         await waitFor(async () => {
