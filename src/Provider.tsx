@@ -15,12 +15,15 @@ const eventNames = ['click', 'touchstart', 'scroll']
  * Pass a NextRouter if you want it to reset the value when the route changes (recommended for Next.js apps)
  */
 export function Provider({ router, children }: ProviderProps & { router?: NextRouter }): ReactElement {
-    const [hasInteracted, setHasInteracted] = useState(false)
+    const [hasUserTriggeredEvent, setHasUserTriggeredEvent] = useState(false)
     const [areEventListenersCurrentlyActive, setAreEventListenersCurrentlyActive] = useState(false)
+    const [timer, setTimer] = useState(10)
+    const [hasTimerExpired, setHasTimerExpired] = useState(false)
+    const hasInteracted = hasUserTriggeredEvent || hasTimerExpired
     const handleInteraction = () => {
-        console.log('xyz the user has interacted!')
-        setHasInteracted(true)
+        setHasUserTriggeredEvent(true)
     }
+
     const addEventListeners = useCallback(() => {
         eventNames.forEach((eventName) => window.addEventListener(eventName, handleInteraction))
         setAreEventListenersCurrentlyActive(true)
@@ -31,10 +34,10 @@ export function Provider({ router, children }: ProviderProps & { router?: NextRo
     }, [])
 
     useEffect(() => {
-        if (areEventListenersCurrentlyActive && hasInteracted) {
+        if (areEventListenersCurrentlyActive && hasUserTriggeredEvent) {
             removeEventListeners()
         }
-    }, [areEventListenersCurrentlyActive, hasInteracted, removeEventListeners])
+    }, [areEventListenersCurrentlyActive, hasUserTriggeredEvent, removeEventListeners])
 
     useEffect(() => {
         addEventListeners()
@@ -42,11 +45,25 @@ export function Provider({ router, children }: ProviderProps & { router?: NextRo
         return () => removeEventListeners()
     }, [removeEventListeners, addEventListeners])
 
+    useEffect(() => {
+        if (timer === 0) {
+            setHasTimerExpired(true)
+        } else {
+            const intervalId = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1)
+            }, 1000)
+
+            return () => {
+                clearInterval(intervalId)
+            }
+        }
+    }, [timer])
+
     // Optionally watch a NextRouter for route changes
     useTrackNextRouter(
         areEventListenersCurrentlyActive,
         removeEventListeners,
-        setHasInteracted,
+        setHasUserTriggeredEvent,
         addEventListeners,
         router
     )

@@ -49,30 +49,31 @@ describe('General functionality', () => {
         expect(() => screen.getByText(/The boolean says you have not interacted yet/)).toThrow()
     })
 
-    // test('Scrolling the page causes the boolean and callback to change their value', async () => {
-    //     render(
-    //         <Provider>
-    //             <TestComponent />
-    //         </Provider>
-    //     )
+    test('times out after 5 seconds', async () => {
+        render(
+            <Provider>
+                <TestComponent />
+            </Provider>
+        )
 
-    //     await waitFor(async () => {
-    //         expect(screen.getByText('You should see me all the time')).toBeVisible()
-    //     })
+        await waitFor(async () => {
+            expect(screen.getByText('You should see me all the time')).toBeVisible()
+        })
 
-    //     expect(screen.getByText('The boolean says you have not interacted yet')).toBeVisible()
-    //     expect(() => screen.getByText(/I only appear using the boolean/)).toThrow()
-    //     expect(() => screen.getByText('I only appear using the callback')).toThrow()
+        expect(screen.getByText('The boolean says you have not interacted yet')).toBeVisible()
+        expect(() => screen.getByText(/I only appear using the boolean/)).toThrow()
+        expect(() => screen.getByText('I only appear using the callback')).toThrow()
 
-    //     userEvent.pointer(document.body)
+        await waitFor(
+            async () => {
+                expect(screen.getByText(/I only appear using the callback/)).toBeVisible()
+            },
+            { timeout: 12000 }
+        )
 
-    //     await waitFor(async () => {
-    //         expect(screen.getByText(/I only appear using the callback/)).toBeVisible()
-    //     })
-
-    //     await waitFor(async () => {
-    //         expect(screen.getByText(/I only appear using the boolean/)).toBeVisible()
-    //     })
-    //     expect(() => screen.getByText(/The boolean says you have not interacted yet/)).toThrow()
-    // })
+        await waitFor(async () => {
+            expect(screen.getByText(/I only appear using the boolean/)).toBeVisible()
+        })
+        expect(() => screen.getByText(/The boolean says you have not interacted yet/)).toThrow()
+    })
 })
