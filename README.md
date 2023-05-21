@@ -1,8 +1,8 @@
 # react-defer-until-interaction
 
-Delay rendering until the user interacts with the page
+Delay loading and rendering until the user interacts with the page
 
-### Features
+## Features
 
 * Reduces page weight by helping you render only the most important content up front
 * With Next.js, it can give you fresh information after each route change, treating each page individually
@@ -49,6 +49,8 @@ function App() {
     )
 }
 ```
+
+This will enable the module to re-run on each route change, as if the page was freshly loaded in the browser.
 
 ## Usage
 
