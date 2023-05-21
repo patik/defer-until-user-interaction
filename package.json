@@ -1,38 +1,11 @@
 {
     "name": "react-defer-until-interaction",
     "version": "1.0.0",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "files": [
-        "./dist/"
-    ],
-    "type": "module",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/patik/react-defer-until-interaction.git"
-    },
     "author": {
         "name": "Craig Patik",
         "email": "craig@patik.com",
         "url": "https://patik.com"
     },
-    "license": "BSD-3-Clause",
-    "keywords": [
-        "viewport",
-        "IntersectionObserver",
-        "window",
-        "DOM",
-        "visible",
-        "visibility",
-        "element",
-        "view",
-        "within-viewport",
-        "browser",
-        "detect",
-        "event",
-        "infinite-scroll",
-        "scroll"
-    ],
     "scripts": {
         "build": "rm -rf dist/* && yarn tsc --project ./tsconfig.export.json",
         "clean": "git clean -fdx",
@@ -81,5 +54,30 @@
     },
     "lint-staged": {
         "*.ts*": "eslint --cache --cache-location .eslintcache --fix"
-    }
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "./dist/"
+    ],
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/patik/react-defer-until-interaction.git"
+    },
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "react",
+        "defer",
+        "loading",
+        "delay",
+        "rendering",
+        "lazyload",
+        "hook",
+        "nextjs",
+        "above-the-fold",
+        "below-the-fold",
+        "lighthouse",
+        "interaction"
+    ]
 }
