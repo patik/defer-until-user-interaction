@@ -1,26 +1,35 @@
 import { NextRouter } from 'next/router'
 import { Dispatch, SetStateAction, useCallback, useEffect } from 'react'
 
-export function useTrackNextRouter(
-    areEventListenersCurrentlyActive: boolean,
-    removeEventListeners: () => void,
-    setHasInteracted: Dispatch<SetStateAction<boolean>>,
-    addEventListeners: () => void,
+export function useTrackNextRouter({
+    removeEventListeners,
+    setHasUserTriggeredEvent,
+    addEventListeners,
+    router,
+    startTimer,
+    endTimer,
+}: {
+    removeEventListeners: () => void
+    setHasUserTriggeredEvent: Dispatch<SetStateAction<boolean>>
+    addEventListeners: () => void
     router: NextRouter | undefined
-) {
+    startTimer: () => void
+    endTimer: () => void
+}) {
     const onRouteChangeStart = useCallback(() => {
-        // If the user hasn't interacted since the last route change, then it means we haven't cleaned up the existing event listeners yet, so do that first before we re-add them below
-        if (areEventListenersCurrentlyActive) {
-            removeEventListeners()
-        }
+        // Clean up the existing event listeners and timer
+        removeEventListeners()
+        endTimer()
 
-        setHasInteracted(false)
-    }, [areEventListenersCurrentlyActive, removeEventListeners])
+        // Let the caller know that the page is soon going away so they can avoid loading anything more
+        setHasUserTriggeredEvent(false)
+    }, [endTimer, removeEventListeners, setHasUserTriggeredEvent])
 
     const onRouteChangeComplete = useCallback(() => {
         // This tiny delay allows us to skip past the scroll event that will be fired when Next scrolls the page to the top
         requestAnimationFrame(() => addEventListeners())
-    }, [addEventListeners])
+        startTimer()
+    }, [addEventListeners, startTimer])
 
     useEffect(() => {
         if (!router) {
@@ -34,5 +43,5 @@ export function useTrackNextRouter(
             router.events.off('routeChangeStart', onRouteChangeStart)
             router.events.off('routeChangeComplete', onRouteChangeComplete)
         }
-    }, [onRouteChangeComplete, onRouteChangeStart, router?.events])
+    }, [onRouteChangeComplete, onRouteChangeStart, router])
 }

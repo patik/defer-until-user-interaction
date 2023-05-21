@@ -1,5 +1,5 @@
 import { NextRouter } from 'next/router'
-import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { DeferUntilInteractionContext } from './Context'
 import { ProviderProps } from './types'
 import { useTrackNextRouter } from './useTrackNextRouter'
@@ -19,6 +19,7 @@ export function Provider({ router, children }: ProviderProps & { router?: NextRo
     const [areEventListenersCurrentlyActive, setAreEventListenersCurrentlyActive] = useState(false)
     const [timer, setTimer] = useState(10)
     const [hasTimerExpired, setHasTimerExpired] = useState(false)
+    const intervalTimer = useRef<ReturnType<typeof setInterval>>()
     const hasInteracted = hasUserTriggeredEvent || hasTimerExpired
     const handleInteraction = () => {
         setHasUserTriggeredEvent(true)
@@ -29,15 +30,22 @@ export function Provider({ router, children }: ProviderProps & { router?: NextRo
         setAreEventListenersCurrentlyActive(true)
     }, [])
     const removeEventListeners = useCallback(() => {
+        if (!areEventListenersCurrentlyActive) {
+            return
+        }
+
         eventNames.forEach((eventName) => window.removeEventListener(eventName, handleInteraction))
         setAreEventListenersCurrentlyActive(false)
-    }, [])
+    }, [areEventListenersCurrentlyActive])
 
-    useEffect(() => {
-        if (areEventListenersCurrentlyActive && hasUserTriggeredEvent) {
-            removeEventListeners()
-        }
-    }, [areEventListenersCurrentlyActive, hasUserTriggeredEvent, removeEventListeners])
+    const startTimer = () => {
+        intervalTimer.current = setInterval(() => {
+            setTimer((prevTimer) => prevTimer - 1)
+        }, 1000)
+    }
+    const endTimer = () => {
+        clearInterval(intervalTimer.current)
+    }
 
     useEffect(() => {
         addEventListeners()
@@ -49,24 +57,31 @@ export function Provider({ router, children }: ProviderProps & { router?: NextRo
         if (timer === 0) {
             setHasTimerExpired(true)
         } else {
-            const intervalId = setInterval(() => {
-                setTimer((prevTimer) => prevTimer - 1)
-            }, 1000)
+            startTimer()
 
-            return () => {
-                clearInterval(intervalId)
-            }
+            return () => endTimer()
         }
     }, [timer])
 
+    // Clean up event listeners and the timer once the user has interacted
+    useEffect(() => {
+        if (!hasUserTriggeredEvent) {
+            return
+        }
+
+        removeEventListeners()
+        endTimer()
+    }, [hasUserTriggeredEvent, removeEventListeners])
+
     // Optionally watch a NextRouter for route changes
-    useTrackNextRouter(
-        areEventListenersCurrentlyActive,
+    useTrackNextRouter({
         removeEventListeners,
         setHasUserTriggeredEvent,
         addEventListeners,
-        router
-    )
+        router,
+        startTimer,
+        endTimer,
+    })
 
     // This function will only invoke its callback when the page has been interacted with
     const afterInteraction = useMemo(
