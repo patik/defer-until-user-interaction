@@ -1,10 +1,10 @@
 import { NextRouter } from 'next/router'
-import { ReactElement, useMemo, useRef, useState } from 'react'
-import { DeferUntilInteractionContext } from './Context'
-import { ProviderProps } from '../types'
+import { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { useTrackNextRouter } from '../effects/useTrackNextRouter'
-import { useTrackUserEvents } from '../effects/useTrackUserEvents'
 import { useTrackTimer } from '../effects/useTrackTimer'
+import { useTrackUserEvents } from '../effects/useTrackUserEvents'
+import { ProviderProps } from '../types'
+import { DeferUntilInteractionContext } from './Context'
 
 /**
  * Tracks whether or not the user has interacted with the current page
@@ -35,6 +35,22 @@ export function Provider({ router, timeout = 10000, children }: ProviderProps & 
         timer,
         setHasTimerExpired,
     })
+
+    // Stop the timers when the user interacts
+    useEffect(() => {
+        if (hasUserTriggeredEvent) {
+            endTimer()
+            return
+        }
+    }, [endTimer, hasUserTriggeredEvent, timer])
+
+    // Remove the event listeners when the timer runs out
+    useEffect(() => {
+        if (hasTimerExpired) {
+            removeEventListeners()
+            return
+        }
+    }, [hasTimerExpired, removeEventListeners])
 
     // Optionally watch NextRouter for route changes
     useTrackNextRouter({

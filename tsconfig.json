@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "target": "es2016",
+        "target": "es5",
+        "module": "commonjs",
         "lib": ["dom", "esnext"],
-        "jsx": "preserve",
-        "module": "esnext",
+        "jsx": "react-jsx",
         "moduleResolution": "node",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
@@ -13,8 +13,6 @@
         "declarationMap": true,
         "sourceMap": true,
         "outDir": "dist",
-        "rootDir": ".",
-        "baseUrl": ".",
         "allowJs": true
     },
     "include": ["src/**/*.ts*", "tests/**/*.ts*", "jest.config.ts"],

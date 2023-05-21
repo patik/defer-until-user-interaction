@@ -31,6 +31,7 @@ export function useTrackTimer({
         clearInterval(intervalTimer.current)
     }, [intervalTimer, isTimerDisabledByCaller])
 
+    // Start/stop the timers
     useEffect(() => {
         if (isTimerDisabledByCaller) {
             return
@@ -44,5 +45,6 @@ export function useTrackTimer({
             return () => endTimer()
         }
     }, [endTimer, isTimerDisabledByCaller, setHasTimerExpired, startTimer, timer])
+
     return { startTimer, endTimer }
 }

@@ -1,6 +1,6 @@
 {
     "name": "react-defer-until-interaction",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": {
         "name": "Craig Patik",
         "email": "craig@patik.com",
@@ -55,12 +55,13 @@
     "lint-staged": {
         "*.ts*": "eslint --cache --cache-location .eslintcache --fix"
     },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
     "files": [
-        "./dist/"
+        "dist/*",
+        "src/*"
     ],
-    "type": "module",
     "repository": {
         "type": "git",
         "url": "https://github.com/patik/react-defer-until-interaction.git"

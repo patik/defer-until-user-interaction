@@ -97,4 +97,38 @@ describe('Timeout', () => {
         })
         expect(() => screen.getByText(/The boolean says you have not interacted yet/)).toThrow()
     })
+
+    test('timer stops after the user clicks', async () => {
+        const callbackMock = jest.fn()
+
+        function TimerTest() {
+            const { afterInteraction } = useDeferUntilInteraction()
+            afterInteraction(() => callbackMock())
+            return <p>{afterInteraction(() => 'alpha bravo')}</p>
+        }
+
+        render(
+            <DeferUntilInteractionProvider timeout={3000}>
+                <TimerTest />
+            </DeferUntilInteractionProvider>
+        )
+
+        await userEvent.click(document.body)
+
+        await waitFor(async () => {
+            expect(screen.getByText(/alpha bravo/)).toBeVisible()
+        })
+
+        expect(callbackMock).toHaveBeenCalledTimes(2)
+
+        // Store the number of calls at this point in time
+        const callCount = callbackMock.mock.calls.length
+
+        // Wait a while to ensure the timer doesn't cause our callback to run again
+        await Promise.resolve(new Promise((resolve) => setTimeout(resolve, 3000)))
+
+        await waitFor(async () => {
+            expect(callbackMock).toHaveBeenCalledTimes(callCount)
+        })
+    })
 })
